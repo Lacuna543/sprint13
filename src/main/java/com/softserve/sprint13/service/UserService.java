@@ -2,7 +2,7 @@ package com.softserve.sprint13.service;
 
 
 import com.softserve.sprint13.entity.Marathon;
-import com.softserve.sprint13.entity.Task;
+        import com.softserve.sprint13.entity.Task;
 import com.softserve.sprint13.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +20,5 @@ public interface UserService {
 
     boolean addUserToMarathon(User user, Marathon marathon);
 
-    boolean addUserToUser(User user, Task task);
+    boolean addUserToTask(User user, Task task);
 }

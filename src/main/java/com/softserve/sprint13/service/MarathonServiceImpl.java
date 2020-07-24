@@ -1,7 +1,6 @@
 package com.softserve.sprint13.service;
 
 import com.softserve.sprint13.entity.Marathon;
-import com.softserve.sprint13.entity.Task;
 import com.softserve.sprint13.entity.User;
 import org.springframework.stereotype.Service;
 

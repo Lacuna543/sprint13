@@ -1,13 +1,18 @@
 package com.softserve.sprint13.entity;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name="sprint")
+@Setter
+@Getter
 public class Sprint {
 
     @Id
@@ -15,12 +20,17 @@ public class Sprint {
     private Long id;
 
     @NotNull
+    @CreationTimestamp
+    @Column(name = "finish")
     private LocalDate finish;
 
     @NotNull
+    @CreationTimestamp
+    @Column(name = "start_date")
     private LocalDate start_date;
 
     @NotNull
+    @Column(name = "title")
     private String title;
 
     @ManyToOne
@@ -28,44 +38,4 @@ public class Sprint {
 
     @OneToMany(mappedBy = "sprint")
     private List<Task> tasks;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getFinish() {
-        return finish;
-    }
-
-    public void setFinish(LocalDate finish) {
-        this.finish = finish;
-    }
-
-    public LocalDate getStart_date() {
-        return start_date;
-    }
-
-    public void setStart_date(LocalDate start_date) {
-        this.start_date = start_date;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Marathon getMarathon() {
-        return marathon;
-    }
-
-    public void setMarathon(Marathon marathon) {
-        this.marathon = marathon;
-    }
 }

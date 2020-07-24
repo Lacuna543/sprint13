@@ -16,8 +16,8 @@ public class ProgressServiceImpl implements ProgressService{
 
     @Autowired
     private ProgressRepository progressRepository;
-    @Autowired
-    private UserRepository userRepository;
+   /* @Autowired
+    private UserRepository userRepository;*/
 
     @Override
     public Progress getProgressById(Long idProgress) {

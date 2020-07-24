@@ -1,15 +1,18 @@
 package com.softserve.sprint13.entity;
 
 import com.sun.istack.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
 @Entity
-@Table
+@Table(name="progress")
+@Setter
+@Getter
 public class Progress {
 
     public enum TaskStatus {
@@ -21,13 +24,16 @@ public class Progress {
     private Long id;
 
     @CreationTimestamp
+    @Column(name = "started")
     private LocalDate started;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private TaskStatus status;
 
     @UpdateTimestamp
+    @Column(name = "updated")
     private LocalDate updated;
 
     @ManyToOne
@@ -35,38 +41,5 @@ public class Progress {
 
     @ManyToOne
     private User trainee;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getStarted() {
-        return started;
-    }
-
-    public void setStarted(LocalDate started) {
-        this.started = started;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
-
-    public LocalDate getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(LocalDate updated) {
-        this.updated = updated;
-    }
 
 }
