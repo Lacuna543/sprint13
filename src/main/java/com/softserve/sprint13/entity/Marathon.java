@@ -1,16 +1,19 @@
 package com.softserve.sprint13.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "marathon")
 public class Marathon {
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "title")
     private String title;
 
+    @ManyToMany(mappedBy = "marathonUsers")
+    List<User> users;
     public Marathon() {
     }
 

@@ -1,15 +1,18 @@
 package com.softserve.sprint13.service;
 
 import com.softserve.sprint13.entity.Marathon;
+import com.softserve.sprint13.entity.Task;
+import com.softserve.sprint13.entity.User;
 
 import java.util.List;
 
-public interface MarathonService {
-    List<Marathon> getAll();
+interface MarathonService {
 
-    Marathon getMarathonById(Long id);
+     List<User> getAll();
 
-    Marathon createOrUpdate(Marathon marathon);
+     Marathon getMarathonById(Long id);
 
-    void deleteMarathonById(Long id);
+     Marathon createOrUpdate(Marathon marathon);
+
+     void deleteMarathonById(Long id);
 }

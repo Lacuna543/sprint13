@@ -1,12 +1,16 @@
 package com.softserve.sprint13.service;
 
 import com.softserve.sprint13.entity.Marathon;
+import com.softserve.sprint13.entity.Task;
+import com.softserve.sprint13.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class MarathonServiceImpl implements MarathonService {
+@Service
+public class MarathonServiceImpl implements MarathonService{
     @Override
-    public List<Marathon> getAll() {
+    public List<User> getAll() {
         return null;
     }
 
