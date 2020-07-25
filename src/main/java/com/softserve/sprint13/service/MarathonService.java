@@ -6,9 +6,9 @@ import com.softserve.sprint13.entity.User;
 
 import java.util.List;
 
-interface MarathonService {
+public interface MarathonService {
 
-     List<User> getAll();
+     List<Marathon> getAll();
 
      Marathon getMarathonById(Long id);
 

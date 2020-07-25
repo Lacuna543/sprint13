@@ -10,20 +10,24 @@ import java.util.List;
 
 @Data
 @Entity
-@Table
+@Table(name="sprint")
 public class Sprint {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @CreationTimestamp
+    @Column(name = "finish")
     private LocalDate finish;
 
+    @NotNull
     @CreationTimestamp
+    @Column(name = "start_date")
     private LocalDate start_date;
 
     @NotNull
+    @Column(name = "title")
     private String title;
 
     @ManyToOne
@@ -41,5 +45,8 @@ public class Sprint {
                 ", title='" + title + '\'' +
                 ", marathonId=" + marathon.getId() +
                 '}';
+    }
+
+    public Sprint() {
     }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table
+@Table(name="progress")
 public class Progress {
 
     public enum TaskStatus {
@@ -22,12 +22,15 @@ public class Progress {
     private Long id;
 
     @CreationTimestamp
+    @Column(name = "started")
     private LocalDate started;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private TaskStatus status;
 
     @UpdateTimestamp
+    @Column(name = "updated")
     private LocalDate updated;
 
     @ManyToOne
@@ -46,5 +49,7 @@ public class Progress {
                 ", taskId=" + task.getId() +
                 ", traineeId=" + trainee.getId() +
                 '}';
+    }
+    public Progress() {
     }
 }

@@ -41,13 +41,14 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
     @ToString.Exclude
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "marathon_user", joinColumns = {@JoinColumn(name = "user_id")},
+    @JoinTable(name = "marathon_user", joinColumns = {@JoinColumn(name = "user_id")},//type of relation, joinColumns with id
             inverseJoinColumns = {@JoinColumn(name = "marathon_id")})
     private List<Marathon> marathonUsers;
 
