@@ -1,7 +1,10 @@
 package com.softserve.sprint13.entity;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,6 +14,9 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "task")
 public class Task {
     @Id
@@ -46,6 +52,4 @@ public class Task {
                 '}';
     }
 
-    public Task() {
-    }
 }

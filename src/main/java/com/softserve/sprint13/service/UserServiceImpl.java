@@ -20,10 +20,12 @@ import java.util.Set;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    @Autowired
+
     private UserRepository userRepository;
+
     private MarathonRepository marathonRepository;
 
+    @Autowired
     public UserServiceImpl(MarathonRepository marathonRepository, UserRepository userRepository) {
         this.marathonRepository = marathonRepository;
         this.userRepository = userRepository;
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(violations.toString());
         }
 
-        if (entity != null) {
+        if (entity.getId() != null) {
             Optional<User> users = userRepository.findById(entity.getId());
             if (users.isPresent()) {
                 User newUser = users.get();

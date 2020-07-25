@@ -1,7 +1,10 @@
 package com.softserve.sprint13.entity;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,6 +13,9 @@ import java.util.List;
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="sprint")
 public class Sprint {
     @Id
@@ -23,8 +29,8 @@ public class Sprint {
 
     @NotNull
     @CreationTimestamp
-    @Column(name = "start_date")
-    private LocalDate start_date;
+    @Column(name = "startDate")
+    private LocalDate startDate;
 
     @NotNull
     @Column(name = "title")
@@ -41,12 +47,10 @@ public class Sprint {
         return "Sprint{" +
                 "id=" + id +
                 ", finish=" + finish +
-                ", start_date=" + start_date +
+                ", start_date=" + startDate +
                 ", title='" + title + '\'' +
                 ", marathonId=" + marathon.getId() +
                 '}';
     }
 
-    public Sprint() {
-    }
 }

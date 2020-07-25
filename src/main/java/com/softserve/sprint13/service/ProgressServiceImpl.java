@@ -51,6 +51,10 @@ public class ProgressServiceImpl implements ProgressService{
 
     @Override
     public Progress addOrUpdateProgress(Progress progress) {
+        if (progress.getId() != null){
+            findByIdOrThrowException(progressRepository, progress.getId());
+            return progressRepository.save(progress);
+        }
         return progressRepository.save(progress);
     }
 

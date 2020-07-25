@@ -34,7 +34,7 @@ public class SprintServiceImpl implements SprintService {
         try {
             findByIdOrThrowException(marathonRepository, marathon.getId());
             sprint.setMarathon(marathon);
-            marathonRepository.save(marathon);
+            sprintRepository.save(sprint);
             return true;
         } catch (EntityNotFoundException e) {
             return false;

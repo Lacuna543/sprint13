@@ -17,9 +17,10 @@ import java.util.Set;
 
 @Service
 public class MarathonServiceImpl implements MarathonService {
-    @Autowired
+
     private MarathonRepository marathonRepository;
 
+    @Autowired
     public MarathonServiceImpl(MarathonRepository marathonRepository) {
     this.marathonRepository = marathonRepository;
     }
