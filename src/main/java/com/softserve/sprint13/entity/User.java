@@ -23,7 +23,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
+   // @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
+    @Pattern(regexp = "[_a-zA-Z0-9\\-]+@[a-z]+.[a-z]{2,3}", message = "Please provide a valid email address")
     @Column(name = "email")
     private String email;
 

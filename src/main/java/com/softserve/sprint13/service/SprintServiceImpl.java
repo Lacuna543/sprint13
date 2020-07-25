@@ -60,4 +60,10 @@ public class SprintServiceImpl implements SprintService {
     private <T> T findByIdOrThrowException(JpaRepository<T, Long> repository, Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity is not found!"));
     }
+
+    @Override
+    public Sprint create(Sprint sprint) {
+        Sprint newSprint = sprintRepository.save(sprint);
+        return newSprint;
+    }
 }

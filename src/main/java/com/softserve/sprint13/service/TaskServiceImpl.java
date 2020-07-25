@@ -37,4 +37,9 @@ public class TaskServiceImpl implements TaskService {
     private <T> T findByIdOrThrowException(JpaRepository<T, Long> repository, Long id) {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity is not found!"));
     }
+    @Override
+    public Task create(Task task) {
+        Task newTask = taskRepository.save(task);
+        return newTask;
+    }
 }

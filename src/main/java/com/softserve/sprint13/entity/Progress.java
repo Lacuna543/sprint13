@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name="progress")
+@Table(name = "progress")
 public class Progress {
 
     public enum TaskStatus {
@@ -39,7 +39,7 @@ public class Progress {
     @ManyToOne
     private User trainee;
 
-    @Override
+   @Override
     public String toString() {
         return "Progress{" +
                 "id=" + id +
@@ -50,6 +50,7 @@ public class Progress {
                 ", traineeId=" + trainee.getId() +
                 '}';
     }
+
     public Progress() {
     }
 }

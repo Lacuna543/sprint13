@@ -4,11 +4,12 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Data
 @Entity
 @Table(name = "task")
 public class Task {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -19,10 +20,17 @@ public class MarathonServiceImpl implements MarathonService {
     @Autowired
     private MarathonRepository marathonRepository;
 
+    public MarathonServiceImpl(MarathonRepository marathonRepository) {
+    this.marathonRepository = marathonRepository;
+    }
+
     @Override
     public List<Marathon> getAll() {
-        List<Marathon> users = marathonRepository.findAll();
-        return users;
+        List<Marathon> marathons = marathonRepository.findAll();
+        if (marathons.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return marathons;
     }
 
     @Override
@@ -32,7 +40,7 @@ public class MarathonServiceImpl implements MarathonService {
 
         if (marathon.isPresent()) {
             return marathon.get();
-        } else throw new EntityNotFoundException("No marathon exist for given id");
+        } else throw new EntityNotFoundException("No marathon exist for given id " + id);
 
     }
 
@@ -44,7 +52,7 @@ public class MarathonServiceImpl implements MarathonService {
             throw new RuntimeException(violations.toString());
         }
 
-        if (marathon != null) {
+        if (marathon.getId() != null) {
             Optional<Marathon> marathons = marathonRepository.findById(marathon.getId());
             if (marathons.isPresent()) {
                 Marathon newMarathon = marathons.get();
@@ -60,6 +68,10 @@ public class MarathonServiceImpl implements MarathonService {
 
     @Override
     public void deleteMarathonById(Long id) {
+        Optional<Marathon> marathon = marathonRepository.findById(id);
+        if (marathon.isPresent()) {
+             marathonRepository.delete(marathon.get());
+        } else throw new EntityNotFoundException("No user exist for given id");
 
     }
 }

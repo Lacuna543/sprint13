@@ -24,6 +24,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private MarathonRepository marathonRepository;
 
+    public UserServiceImpl(MarathonRepository marathonRepository, UserRepository userRepository) {
+        this.marathonRepository = marathonRepository;
+        this.userRepository = userRepository;
+
+    }
+
     @Override
     public List<User> getAll() {
         List<User> users = userRepository.findAll();
@@ -35,12 +41,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long id) {
-
         Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
             return user.get();
-        } else throw new EntityNotFoundException("No user exist for given id");
+        } else throw new EntityNotFoundException("No user exist for given id" + id);
 
     }
 
@@ -59,13 +64,15 @@ public class UserServiceImpl implements UserService {
                 newUser.setEmail(entity.getEmail());
                 newUser.setFirstName(entity.getFirstName());
                 newUser.setLastName(entity.getLastName());
-                newUser.setRole(entity.getRole());
+              //  newUser.setRole(entity.getRole());
                 newUser.setPassword(entity.getPassword());
                 newUser = userRepository.save(newUser);
                 return newUser;
             }
         }
-        entity = userRepository.save(entity);
+        if (entity != null) {
+            entity = userRepository.save(entity);
+        }
         return entity;
     }
 
@@ -81,10 +88,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUserToMarathon(User user, Marathon marathon) {
-        User userEntity = userRepository.getOne(user.getId());
-        Marathon marathonEntity = marathonRepository.getOne(marathon.getId());
-        marathonEntity.getUsers().add(userEntity);
-        return marathonRepository.save(marathonEntity) != null;
+        Optional<Marathon> marathonFromBd = marathonRepository.findById(marathon.getId());
+        if (marathonFromBd.isPresent()) {
+            marathonFromBd.get().getUsers().add(user);
+            marathonRepository.save(marathonFromBd.get());
+            return true;
+        }
+        return false;
     }
 
 }

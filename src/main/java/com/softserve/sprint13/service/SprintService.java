@@ -15,4 +15,6 @@ public interface SprintService {
 
     Sprint getSprintById(Long idSprint);
 
+    public Sprint create(Sprint sprint);
+
 }

@@ -11,4 +11,5 @@ public interface TaskService {
     Task addTaskToSprint(Task task, Sprint sprint);
     Task getTaskById(Long idTask);
 
+    Task create(Task task);
 }
