@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
-
         if (user.isPresent()) {
             return user.get();
         } else throw new EntityNotFoundException("No user exist for given id" + id);
@@ -66,26 +65,22 @@ public class UserServiceImpl implements UserService {
                 newUser.setEmail(entity.getEmail());
                 newUser.setFirstName(entity.getFirstName());
                 newUser.setLastName(entity.getLastName());
-              //  newUser.setRole(entity.getRole());
+                //  newUser.setRole(entity.getRole());
                 newUser.setPassword(entity.getPassword());
                 newUser = userRepository.save(newUser);
                 return newUser;
             }
         }
-        if (entity != null) {
-            entity = userRepository.save(entity);
-        }
+        entity = userRepository.save(entity);
         return entity;
     }
 
     @Override
     public List<User> getAllByRole(String role) {
-
-        Optional<List<User>> users = Optional.ofNullable(userRepository.getAllByRole(User.Role.valueOf(role.toUpperCase())));
+        Optional<List<User>> users = Optional.ofNullable( userRepository.getAllByRole(User.Role.valueOf(role.toUpperCase())));
         if (users.isPresent()) {
             return users.get();
         } else throw new EntityNotFoundException("There is no Role");
-
     }
 
     @Override

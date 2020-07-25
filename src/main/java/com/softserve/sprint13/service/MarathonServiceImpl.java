@@ -58,7 +58,7 @@ public class MarathonServiceImpl implements MarathonService {
             if (marathons.isPresent()) {
                 Marathon newMarathon = marathons.get();
                 newMarathon.setTitle(marathon.getTitle());
-                newMarathon = marathonRepository.save(newMarathon);
+                   newMarathon = marathonRepository.save(newMarathon);
                 return newMarathon;
             }
         }
@@ -72,7 +72,7 @@ public class MarathonServiceImpl implements MarathonService {
         Optional<Marathon> marathon = marathonRepository.findById(id);
         if (marathon.isPresent()) {
              marathonRepository.delete(marathon.get());
-        } else throw new EntityNotFoundException("No user exist for given id");
+        } else throw new EntityNotFoundException("No user exist for given id " + id);
 
     }
 }

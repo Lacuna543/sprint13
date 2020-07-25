@@ -23,7 +23,6 @@ public class Marathon {
     private Long id;
 
     @Column(name = "title")
-    @NotNull
     private String title;
 
     @ManyToMany(mappedBy = "marathonUsers")

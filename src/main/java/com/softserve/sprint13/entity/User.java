@@ -24,24 +24,28 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   // @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
-    @Pattern(regexp = "[_a-zA-Z0-9\\-]+@[a-z]+.[a-z]{2,3}", message = "Please provide a valid email address")
+    @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
+    @NotNull
     @Column(name = "email")
     private String email;
 
+    @NotNull
     @Size(min = 2, max = 20, message = "First name must be between 2 and 20 characters")
     @Column(name = "first_name")
     private String firstName;
 
-
+    @NotNull
     @Size(min = 2, max = 20, message = "Last name must be between 2 and 20 characters")
+    @Column(name = "last_name")
     private String lastName;
 
     @NotNull
+    @Column(name = "password")
     private String password;
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role;
 
     @ToString.Exclude

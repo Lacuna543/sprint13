@@ -8,12 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-
 import javax.validation.ConstraintViolationException;
-
+import java.time.LocalDate;
+import java.util.Random;
 
 @SpringBootApplication
-public class Sprint13Application {
+public class Sprint13Application implements CommandLineRunner{
     private final UserService userService;
     private final TaskService taskService;
     private final SprintService sprintService;
@@ -21,13 +21,8 @@ public class Sprint13Application {
     private final MarathonService marathonService;
 
     @Autowired
-    public Sprint13Application(
-            UserService userService,
-            TaskService taskService,
-            SprintService sprintService,
-            ProgressService progressService,
-            MarathonService marathonService
-    ) {
+    public Sprint13Application(UserService userService, TaskService taskService, SprintService sprintService,
+                               ProgressService progressService, MarathonService marathonService) {
         this.userService = userService;
         this.taskService = taskService;
         this.sprintService = sprintService;
@@ -38,7 +33,11 @@ public class Sprint13Application {
     public static void main(String[] args) {
         SpringApplication.run(Sprint13Application.class, args);
     }
+        @Override
+        public void run(String... args) {
 
+            System.out.println("=======   application started   ========");
+        }
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
@@ -52,15 +51,15 @@ public class Sprint13Application {
                 marathon2 = marathonService.createOrUpdate(marathon2);
 
                 User student1 = User.builder()
-                        .firstName("Lida")
-                        .lastName("Black")
+                        .firstName("Andrey")
+                        .lastName("Ivanov")
                         .email("black@gmail.com")
                         .password("password1")
                         .role(User.Role.TRAINEE)
                         .build();
                 User student2 = User.builder()
-                        .firstName("Nazar")
-                        .lastName("Red")
+                        .firstName("Ksenia")
+                        .lastName("Petrova")
                         .email("red@gmail.com")
                         .password("password2")
                         .role(User.Role.TRAINEE)
@@ -68,7 +67,7 @@ public class Sprint13Application {
 
                 User mentor1 = User.builder()
                         .firstName("Ivan")
-                        .lastName("Blue")
+                        .lastName("Chayka")
                         .email("blue@gmail.com")
                         .password("password3")
                         .role(User.Role.MENTOR)
@@ -90,15 +89,11 @@ public class Sprint13Application {
                 userService.getAll().forEach(System.out::println);
 
                 marathonService.deleteMarathonById(marathon2.getId());
-
-
                 marathonService.getAll().forEach(System.out::println);
 
 
                 System.out.println("***=== THE SECOND PART ===***");
 
-
-                //TODO: fill database
                 //1.Create two sprints
                 Sprint sprint1 = Sprint.builder()
                         .title("Sprint 1")
@@ -113,16 +108,13 @@ public class Sprint13Application {
                 sprintService.addSprintToMarathon(sprint2, marathon2);
 
                 //3. create 2 task and save ---> addTaskToSprint
-
                 Task task1 = Task.builder().title("task1").build();
                 Task task2 = Task.builder().title("task2").build();
 
                 //4.create 3 progresses and save --> addTaskForStudent
-
                 Progress progress1 = progressService.addTaskForStudent(task1, student1);
                 Progress progress2 = progressService.addTaskForStudent(task2, student2);
                 Progress progress3 = progressService.addTaskForStudent(task1, mentor1);
-
 
                 //5. All methods with ProgressService!
                 progressService.addOrUpdateProgress(progress1);
