@@ -38,4 +38,7 @@ public class Sprint {
 
     @OneToMany(mappedBy = "sprint")
     private List<Task> tasks;
+
+    public Sprint() {
+    }
 }

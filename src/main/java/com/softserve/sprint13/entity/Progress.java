@@ -42,4 +42,6 @@ public class Progress {
     @ManyToOne
     private User trainee;
 
+    public Progress() {
+    }
 }

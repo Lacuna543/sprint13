@@ -36,4 +36,7 @@ public class Task {
 
     @OneToMany(mappedBy = "task")
     private List<Progress> progresses;
+
+    public Task() {
+    }
 }

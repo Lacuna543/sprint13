@@ -21,7 +21,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
     @Column(name = "email")
@@ -44,11 +44,11 @@ public class User {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
 
     @ToString.Exclude
-    @ManyToMany //type of relation, joinColumns with id
-    @JoinTable(name = "marathon_user", joinColumns = {@JoinColumn(name = "user_id")},
+    @ManyToMany
+    @JoinTable(name = "marathon_user", joinColumns = {@JoinColumn(name = "user_id")},//type of relation, joinColumns with id
             inverseJoinColumns = {@JoinColumn(name = "marathon_id")})
     private List<Marathon> marathonUsers;
 

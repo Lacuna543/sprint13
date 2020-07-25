@@ -6,7 +6,7 @@ import com.softserve.sprint13.entity.Task;
 
 import java.util.List;
 
-interface SprintService {
+public interface SprintService {
 
     List<Sprint> getSprintsByMarathonId(Long idMarathon);
 

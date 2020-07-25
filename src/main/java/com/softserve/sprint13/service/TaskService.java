@@ -6,7 +6,7 @@ import com.softserve.sprint13.entity.Task;
 
 import java.util.List;
 
-interface TaskService {
+public interface TaskService {
 
     Task addTaskToSprint(Task task, Sprint sprint);
     Task getTaskById(Long idTask);
