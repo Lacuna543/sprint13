@@ -4,9 +4,12 @@ import com.softserve.sprint13.entity.Progress;
 import com.softserve.sprint13.entity.Progress.TaskStatus;
 import com.softserve.sprint13.entity.Task;
 import com.softserve.sprint13.entity.User;
+import com.softserve.sprint13.exception.EntityNotFoundException;
 import com.softserve.sprint13.repository.ProgressRepository;
+import com.softserve.sprint13.repository.TaskRepository;
 import com.softserve.sprint13.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,38 +17,66 @@ import java.util.List;
 @Service
 public class ProgressServiceImpl implements ProgressService{
 
-    @Autowired
     private ProgressRepository progressRepository;
-   /* @Autowired
-    private UserRepository userRepository;*/
+
+    private TaskRepository taskRepository;
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public ProgressServiceImpl(ProgressRepository progressRepository,
+                               TaskRepository taskRepository,
+                               UserRepository userRepository) {
+        this.progressRepository = progressRepository;
+        this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Progress getProgressById(Long idProgress) {
-        return progressRepository.findById(idProgress).orElse(null);
+        return findByIdOrThrowException(progressRepository, idProgress);
     }
 
     @Override
     public Progress addTaskForStudent(Task task, User user) {
-        return null;
+        findByIdOrThrowException(userRepository, user.getId());
+        Task createdTask = taskRepository.save(task);
+        Progress progress = new Progress();
+        progress.setStatus(TaskStatus.PENDING);
+        progress.setTask(createdTask);
+        progress.setTrainee(user);
+        return progressRepository.save(progress);
+
     }
 
     @Override
     public Progress addOrUpdateProgress(Progress progress) {
-        return null;
+        return progressRepository.save(progress);
     }
 
     @Override
     public boolean setStatus(TaskStatus taskStatus, Progress progress) {
-        return false;
+        try {
+            findByIdOrThrowException(progressRepository, progress.getId());
+            progress.setStatus(taskStatus);
+            progressRepository.save(progress);
+            return true;
+        }catch (EntityNotFoundException e){
+            return false;
+        }
     }
 
     @Override
     public List<Progress> allProgressByUserIdAndMarathonId(Long idUser, Long idMarathon) {
-        return null;
+        return progressRepository.findProgressByTraineeIdAndMarathonId(idUser, idMarathon);
     }
 
     @Override
     public List<Progress> allProgressByUserIdAndSprintId(Long idUser, Long idSprint) {
-        return null;
+        return progressRepository.findProgressByUserIdAndSprintId(idUser, idSprint);
+    }
+
+    private <T>  T findByIdOrThrowException(JpaRepository<T, Long> repository, Long id){
+        return repository.findById(id).orElseThrow(()->new EntityNotFoundException("Entity is not found!"));
     }
 }

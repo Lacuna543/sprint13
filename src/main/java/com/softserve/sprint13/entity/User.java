@@ -21,7 +21,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Pattern(regexp = ".+@.+\\..+", message = "Please provide a valid email address")
     @Column(name = "email")
@@ -41,17 +41,25 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
 
     @ToString.Exclude
-    @ManyToMany //type of relation, joinColumns with id
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "marathon_user", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "marathon_id")})
     private List<Marathon> marathonUsers;
 
-    public User() {
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

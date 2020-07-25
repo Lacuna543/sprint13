@@ -8,7 +8,7 @@ import com.softserve.sprint13.entity.User;
 
 import java.util.List;
 
-interface ProgressService {
+public interface ProgressService {
 
     Progress getProgressById(Long idProgress);
 
